@@ -18,4 +18,15 @@ RSpec.describe GroupMixer do
       expect(subject.size).to eq 12
     end
   end
+
+  describe '.by_member_size' do
+    let(:member_size) { 9 }
+    subject {
+      GroupMixer.by_member_size(people, past_set, member_size)
+    }
+
+    it "return group of specified member size" do
+      expect(subject.first.size).to eq 9
+    end
+  end
 end
