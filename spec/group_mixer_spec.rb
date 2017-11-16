@@ -3,7 +3,19 @@ RSpec.describe GroupMixer do
     expect(GroupMixer::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
+  let(:people) { (0..99).to_a.map(&:to_s) }
+  let(:past_set) {
+    people[0..(people.size/2 - 1)].each_slice(10).to_a
+  }
+
+  describe '.by_group_size' do
+    let(:group_size) { 12 }
+    subject {
+      GroupMixer.by_group_size(people, past_set, group_size)
+    }
+
+    it "return groups of the specified size" do
+      expect(subject.size).to eq 12
+    end
   end
 end
