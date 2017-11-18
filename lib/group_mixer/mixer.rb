@@ -1,15 +1,5 @@
 require "group_mixer/group"
 
-class Set
-  def pairs
-    Set.new(self.map do |i1|
-      self.map do |i2|
-        Set[i1, i2] if i1 != i2
-      end.compact
-    end.flatten)
-  end
-end
-
 class Mixer
   MAX_AMOUNT = 2 ** ([42].pack('i').size * 16 - 2) - 1
 
@@ -41,8 +31,8 @@ class Mixer
   def make_heuristic_from_past(past_set)
     past_pheromone = Hash.new(0)
     past_set.each do |past|
-      Set.new(past).pairs.each do |pair|
-        past_pheromone[pair] += 1
+      past.combination(2).each do |pair|
+        past_pheromone[Set.new(pair)] += 1
       end
     end
     past_pheromone
