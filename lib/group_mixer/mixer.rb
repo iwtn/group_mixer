@@ -14,7 +14,7 @@ class Mixer
     links = make_heuristic_from_past(@people, @past_set)
     link_amount_hash = make_link_amount_hash(@people, links)
 
-    link_amount_hash.sort {|a, b| b[1]<=>a[1]}.map{|k, v| k }.each do |person|
+    link_amount_hash.sort { |a, b| b[1]<=>a[1] }.each do |person, amount|
       select_group(@groups, person, links).add person
     end
 
