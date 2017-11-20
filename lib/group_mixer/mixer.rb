@@ -11,7 +11,7 @@ class Mixer
   end
 
   def execute
-    links = make_heuristic_from_past(@past_set)
+    links = make_heuristic_from_past(@people, @past_set)
     link_amount_hash = make_link_amount_hash(@people, links)
 
     link_amount_hash.sort {|a, b| b[1]<=>a[1]}.map{|k, v| k }.each do |person|
@@ -28,11 +28,13 @@ class Mixer
         (group_size - max_group_size).times.map { |n| GroupMixer::Group.new(min_member_size) }
   end
 
-  def make_heuristic_from_past(past_set)
+  def make_heuristic_from_past(people, past_set)
     past_pheromone = Hash.new(0)
     past_set.each do |past|
       past.combination(2).each do |pair|
-        past_pheromone[Set.new(pair)] += 1
+        if people.include?(pair[0]) && people.include?(pair[1])
+          past_pheromone[Set.new(pair)] += 1
+        end
       end
     end
     past_pheromone
