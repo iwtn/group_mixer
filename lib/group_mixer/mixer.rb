@@ -43,28 +43,22 @@ class Mixer
   def make_link_amount_hash(people, links)
     hash = {}
     people.each do |person|
-      amount = 0
-      links.each do |pair, value|
-        amount += value if pair.member? person
-      end
-      hash[person] = amount
+      hash[person] = links.select { |pair, value| pair.member? person }
+                          .map { |pair, value| value }
+                          .inject(0) { |sum, value| sum += value }
     end
     hash
   end
 
   def select_group(groups, person, links)
-    group_amounts = {}
+    hash = {}
     groups.each do |g|
       if g.full?
-        group_amounts[g] = MAX_AMOUNT
+        hash[g] = MAX_AMOUNT
       else
-        amount = 0
-        g.each do |member|
-          amount += links[Set[member, person]].to_i
-        end
-        group_amounts[g] = amount
+        hash[g] = g.inject(0) { |sum, m| sum += links[Set[m, person]].to_i }
       end
     end
-    group_amounts.min{ |x, y| x[1] <=> y[1] }[0]
+    hash.min{ |x, y| x[1] <=> y[1] }[0]
   end
 end

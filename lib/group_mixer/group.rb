@@ -3,6 +3,7 @@ require 'forwardable'
 
 module GroupMixer
   class Group
+    include Enumerable
     extend Forwardable
 
     def initialize(max_size)
