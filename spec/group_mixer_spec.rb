@@ -17,6 +17,14 @@ RSpec.describe GroupMixer do
     it "return groups of the specified size" do
       expect(subject.size).to eq 12
     end
+
+    context 'there are a new member' do
+      let(:people) { (0..100).to_a.map(&:to_s) }
+
+      it "return all members" do
+        expect(subject.map(&:to_a).flatten.uniq.size).to eq 101
+      end
+    end
   end
 
   describe '.by_member_size' do
