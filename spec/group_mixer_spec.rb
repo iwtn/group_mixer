@@ -25,6 +25,34 @@ RSpec.describe GroupMixer do
         expect(subject.map(&:to_a).flatten.uniq.size).to eq 101
       end
     end
+
+    context 'there is the best answer' do
+      let(:past_set) {
+        [
+          %w(0 3 6),
+          %w(1 4 7),
+          %w(2 5 8),
+
+          %w(0 4 8),
+          %w(1 5 6),
+          %w(2 3 7),
+
+          %w(0 5 7),
+          %w(1 3 8),
+          %w(2 4 6),
+        ]
+      }
+      let(:people) { past_set.flatten.uniq }
+      let(:group_size) { 3 }
+
+      it 'return the best answer' do
+        expect(Set.new(subject)).to eq Set[
+          Set.new(%w(0 1 2)),
+          Set.new(%w(3 4 5)),
+          Set.new(%w(6 7 8)),
+        ]
+      end
+    end
   end
 
   describe '.by_member_size' do
