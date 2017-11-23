@@ -7,7 +7,7 @@ module GroupMixer
   end
 
   def self.by_member_size(people, past_set, max_member_size)
-    group_size = people.size / max_member_size + 1
+    group_size = (people.size / max_member_size.to_f).ceil
     Mixer.new(people, past_set, group_size).execute
   end
 end

@@ -36,5 +36,13 @@ RSpec.describe GroupMixer do
     it "return group of specified member size" do
       expect(subject.first.size).to eq 9
     end
+
+    context 'devisible by member size' do
+      let(:member_size) { 10 }
+
+      it "returns divided result" do
+        expect(subject.size).to eq 10
+      end
+    end
   end
 end
