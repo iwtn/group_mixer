@@ -49,12 +49,14 @@ class Mixer
   end
 
   def select_group(groups, person, links)
-    groups.each_with_object(Hash.new) { |g, hash|
+    group_relevance = groups.each_with_object(Hash.new) { |g, hash|
       if g.full?
         hash[g] = MAX_AMOUNT
       else
         hash[g] = g.inject(0) { |sum, m| sum += links[Set[m, person]].to_i }
       end
-    }.min{ |x, y| x[1] <=> y[1] }[0]
+    }
+    min_value = group_relevance.min{ |x, y| x[1] <=> y[1] }[1]
+    group_relevance.select { |g, v| v == min_value }.keys.sample
   end
 end
