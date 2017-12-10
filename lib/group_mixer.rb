@@ -1,5 +1,6 @@
 require "group_mixer/version"
 require "group_mixer/mixer"
+require "group_mixer/weighted_group"
 
 module GroupMixer
   def self.by_group_size(people, past_set, group_size)
