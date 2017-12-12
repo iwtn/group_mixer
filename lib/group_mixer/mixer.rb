@@ -7,13 +7,13 @@ module GroupMixer
 
     def initialize(people, past_set, group_size)
       @people = people
-      @past_set = past_set
+      @past_groups = past_set.map { |s| s.is_a?(WeightedGroup) ? s : WeightedGroup.new(s) }
       min_member_size, max_group_size = people.size.divmod group_size
       @groups = make_groups(group_size, max_group_size, min_member_size)
     end
 
     def execute
-      links = make_heuristic_from_past(@people, @past_set)
+      links = make_heuristic_from_past(@people, @past_groups)
       link_amount_hash = make_link_amount_hash(@people, links)
 
       link_amount_hash.sort { |a, b| b[1]<=>a[1] }.each do |person, amount|
@@ -33,9 +33,9 @@ module GroupMixer
     def make_heuristic_from_past(people, past_set)
       past_pheromone = Hash.new(0)
       past_set.each do |past|
-        past.combination(2).each do |pair|
+        past.members.to_a.combination(2).each do |pair|
           if people.include?(pair[0]) && people.include?(pair[1])
-            past_pheromone[Set.new(pair)] += 1
+            past_pheromone[Set.new(pair)] += past.weight
           end
         end
       end
