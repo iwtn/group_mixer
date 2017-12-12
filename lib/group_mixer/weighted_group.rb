@@ -1,10 +1,12 @@
+require 'set'
+
 module GroupMixer
   class WeightedGroup
     include Enumerable
     extend Forwardable
 
     def initialize(members=[], weight=1)
-      @members = members
+      @members = Set.new(members)
       @weight = weight
     end
 
