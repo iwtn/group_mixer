@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    group_mixer (0.3.2)
+    group_mixer (0.3.3)
 
 GEM
   remote: https://rubygems.org/
