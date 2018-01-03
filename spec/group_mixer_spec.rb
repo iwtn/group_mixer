@@ -88,5 +88,13 @@ RSpec.describe GroupMixer do
         expect(subject.size).to eq 10
       end
     end
+
+    context 'member_size is 0' do
+      let(:member_size) { 0 }
+
+      it 'is raise Exception' do
+        expect { subject }.to raise_error(GroupMixer::ZeroMaxMemberSize)
+      end
+    end
   end
 end
