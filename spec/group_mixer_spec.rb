@@ -53,6 +53,14 @@ RSpec.describe GroupMixer do
         ]
       end
     end
+
+    context 'past_set is nil' do
+      let(:past_set) { nil }
+
+      it 'is not raise Exception' do
+        expect {subject}.not_to raise_error
+      end
+    end
   end
 
   describe '.by_member_size' do
