@@ -3,6 +3,9 @@ require "group_mixer/mixer"
 require "group_mixer/weighted_group"
 
 module GroupMixer
+  class ZeroGroupSize < StandardError
+  end
+
   def self.by_group_size(people, past_set, group_size)
     Mixer.new(people, past_set, group_size).execute
   end

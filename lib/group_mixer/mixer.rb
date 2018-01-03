@@ -8,6 +8,10 @@ module GroupMixer
     def initialize(people, past_set, group_size)
       @people = people
       @past_groups = past_set.to_a.map { |s| s.is_a?(WeightedGroup) ? s : WeightedGroup.new(s) }
+      group_size = group_size.to_i
+      if group_size.zero?
+        raise ZeroGroupSize, 'group_size must be a number greater than 1'
+      end
       min_member_size, max_group_size = people.size.divmod group_size
       @groups = make_groups(group_size, max_group_size, min_member_size)
     end

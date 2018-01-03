@@ -58,7 +58,15 @@ RSpec.describe GroupMixer do
       let(:past_set) { nil }
 
       it 'is not raise Exception' do
-        expect {subject}.not_to raise_error
+        expect { subject }.not_to raise_error
+      end
+    end
+
+    context 'group_size is 0' do
+      let(:group_size) { 0 }
+
+      it 'is raise Exception' do
+        expect { subject }.to raise_error(GroupMixer::ZeroGroupSize)
       end
     end
   end
