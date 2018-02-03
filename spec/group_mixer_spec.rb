@@ -10,8 +10,9 @@ RSpec.describe GroupMixer do
 
   describe '.by_group_size' do
     let(:group_size) { 12 }
+    let(:is_separate_reminders) { false }
     subject {
-      GroupMixer.by_group_size(people, past_set, group_size)
+      GroupMixer.by_group_size(people, past_set, group_size, is_separate_reminders)
     }
 
     it "return groups of the specified size" do
@@ -69,12 +70,21 @@ RSpec.describe GroupMixer do
         expect { subject }.to raise_error(GroupMixer::ZeroGroupSize)
       end
     end
+
+    context 'is_separate_reminders is true' do
+      let(:is_separate_reminders) { true }
+
+      it do
+        expect(subject.map(&:size).min).to eq 1
+      end
+    end
   end
 
   describe '.by_member_size' do
     let(:member_size) { 9 }
+    let(:is_separate_reminders) { false }
     subject {
-      GroupMixer.by_member_size(people, past_set, member_size)
+      GroupMixer.by_member_size(people, past_set, member_size, is_separate_reminders)
     }
 
     it "return group of specified member size" do
@@ -94,6 +104,14 @@ RSpec.describe GroupMixer do
 
       it 'is raise Exception' do
         expect { subject }.to raise_error(GroupMixer::ZeroMaxMemberSize)
+      end
+    end
+
+    context 'is_separate_reminders is true' do
+      let(:is_separate_reminders) { true }
+
+      it do
+        expect(subject.map(&:size).min).to eq 1
       end
     end
   end
