@@ -5,15 +5,19 @@ module GroupMixer
   class Mixer
     MAX_AMOUNT = 2 ** ([42].pack('i').size * 16 - 2) - 1
 
-    def initialize(people, past_set, group_size)
+    def initialize(people, past_set, group_size, is_separate_reminders)
       @people = people
       @past_groups = past_set.to_a.map { |s| s.is_a?(WeightedGroup) ? s : WeightedGroup.new(s) }
       group_size = group_size.to_i
       if group_size.zero?
         raise ZeroGroupSize, 'group_size must be a number greater than 1'
       end
-      min_member_size, max_group_size = people.size.divmod group_size
-      @groups = make_groups(group_size, max_group_size, min_member_size)
+      if is_separate_reminders
+        @groups = make_separate_groups(group_size, @people.size)
+      else
+        min_member_size, max_group_size = people.size.divmod group_size
+        @groups = make_groups(group_size, max_group_size, min_member_size)
+      end
     end
 
     def execute
@@ -32,6 +36,12 @@ module GroupMixer
     def make_groups(group_size, max_group_size, min_member_size)
       max_group_size.times.map { |n| Group.new(min_member_size + 1) } +
           (group_size - max_group_size).times.map { |n| Group.new(min_member_size) }
+    end
+
+    def make_separate_groups(group_size, people_size)
+      member_size = people_size / (group_size - 1)
+      (group_size - 1).times.map { Group.new(member_size) } +
+        [Group.new(people_size % (group_size - 1))]
     end
 
     def make_heuristic_from_past(people, past_set)
