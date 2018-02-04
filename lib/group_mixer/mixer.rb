@@ -6,7 +6,7 @@ module GroupMixer
     MAX_AMOUNT = 2 ** ([42].pack('i').size * 16 - 2) - 1
 
     def initialize(people, past_set, group_size, is_separate_reminders)
-      @people = people
+      @people = people.shuffle
       @past_groups = past_set.to_a.map { |s| s.is_a?(WeightedGroup) ? s : WeightedGroup.new(s) }
       group_size = group_size.to_i
       if group_size.zero?
