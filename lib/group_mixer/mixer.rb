@@ -15,8 +15,7 @@ module GroupMixer
       if is_separate_reminders
         @groups = make_separate_groups(group_size, @people.size)
       else
-        min_member_size, max_group_size = people.size.divmod group_size
-        @groups = make_groups(group_size, max_group_size, min_member_size)
+        @groups = make_groups(group_size, @people.size)
       end
     end
 
@@ -33,7 +32,8 @@ module GroupMixer
 
     private
 
-    def make_groups(group_size, max_group_size, min_member_size)
+    def make_groups(group_size, people_size)
+      min_member_size, max_group_size = people_size.divmod group_size
       max_group_size.times.map { |n| Group.new(min_member_size + 1) } +
           (group_size - max_group_size).times.map { |n| Group.new(min_member_size) }
     end
