@@ -1,10 +1,20 @@
 #!/usr/bin/env ruby
 
+require 'thor'
 require_relative './../lib/group_mixer'
 
-people = []
-past_set = [[]]
-group_size = 4
-is_separate_reminders = false
+class GroupMixer::Command < Thor
+  default_command :execute
 
-p GroupMixer.by_group_size(people, past_set, group_size)
+  desc '', 'execute command'
+  def execute
+    people = []
+    past_set = [[]]
+    group_size = 4
+    is_separate_reminders = false
+
+    p GroupMixer.by_group_size(people, past_set, group_size)
+  end
+end
+
+GroupMixer::Command.start(ARGV)
