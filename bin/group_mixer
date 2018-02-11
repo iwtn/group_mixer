@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require_relative './../lib/group_mixer'
+
+people = []
+past_set = [[]]
+group_size = 4
+is_separate_reminders = false
+
+p GroupMixer.by_group_size(people, past_set, group_size)

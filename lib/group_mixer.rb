@@ -1,6 +1,4 @@
-require "group_mixer/version"
-require "group_mixer/mixer"
-require "group_mixer/weighted_group"
+require_relative "./group_mixer/mixer"
 
 module GroupMixer
   class ZeroGroupSize < StandardError
