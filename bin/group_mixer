@@ -10,16 +10,22 @@ class GroupMixer::Command < Thor
   desc '--group_size=GROUP_SIZE --people=FILE_PATH --past_set=CSV_PATH', 'execute command'
   method_option :people, type: :string, require: true
   method_option :past_set, type: :string
-  method_option :group_size, type: :numeric,  require: true
+  method_option :group_size, type: :numeric, require: true
+  method_option :member_size, type: :numeric, require: true
   method_option :reminders, type: :boolean
   def execute
     people = people_from_file(options[:people])
     past_set = past_set_from_file(options[:past_set])
     group_size = options[:group_size]
-    is_separate_reminders = options[:reminders]
+    member_size = options[:member_size]
+    is_separate = options[:reminders]
 
-    GroupMixer.by_group_size(people, past_set, group_size, is_separate_reminders).each do |group|
-      puts group.to_a.join(',')
+    if !!(group_size) ^ !!(member_size)
+      groups = group_size ? GroupMixer.by_group_size(people, past_set, group_size, is_separate)
+                          : GroupMixer.by_member_size(people, past_set, member_size, is_separate)
+      groups.each do |group|
+        puts group.to_a.join(',')
+      end
     end
   end
 
