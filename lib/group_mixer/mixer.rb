@@ -1,5 +1,5 @@
-require "group_mixer/group"
-require "group_mixer/weighted_group"
+require_relative "./group"
+require_relative "./weighted_group"
 
 module GroupMixer
   class Mixer
