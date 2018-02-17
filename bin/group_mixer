@@ -8,10 +8,10 @@ class GroupMixer::Command < Thor
   default_command :execute
 
   desc '--group_size=GROUP_SIZE --people=FILE_PATH --past_set=CSV_PATH', 'execute command'
-  method_option :people, type: :string, require: true
+  method_option :people, type: :string
   method_option :past_set, type: :string
-  method_option :group_size, type: :numeric, require: true
-  method_option :member_size, type: :numeric, require: true
+  method_option :group_size, type: :numeric
+  method_option :member_size, type: :numeric
   method_option :reminders, type: :boolean
   def execute
     people = people_from_file(options[:people])
