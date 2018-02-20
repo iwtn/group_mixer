@@ -136,7 +136,7 @@ RSpec.describe GroupMixer do
       end
     end
 
-    context 'divide 9 people into 4 groups' do
+    context 'divide 10 people into 4 groups' do
       let(:people_size) { 10 }
       let(:group_size) { 4 }
 
