@@ -34,20 +34,20 @@ module GroupMixer
 
   def self.make_groups_by_group_size(people_size, group_size, is_separate_reminders)
     max_mem = (people_size.to_f / group_size).ceil
-    rest = people_size % group_size
     if is_separate_reminders
-      Array.new(group_size - 1) { max_mem } + [rest]
+      Array.new(group_size - 1) { max_mem } + [people_size % max_mem]
     else
+      rest = people_size % group_size
       Array.new(rest) { max_mem } + Array.new(group_size - rest) { max_mem - 1 }
     end
   end
 
   def self.make_groups_by_member_size(people_size, member_size, is_separate_reminders)
     group_size = (people_size.to_f / member_size).ceil
-    rest = people_size % group_size
     if is_separate_reminders
-      Array.new(group_size - 1) { member_size } + [rest]
+      Array.new(group_size - 1) { member_size } + [people_size % member_size]
     else
+      rest = people_size % group_size
       Array.new(rest) { member_size } + Array.new(group_size - rest) { member_size - 1 }
     end
   end
