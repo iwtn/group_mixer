@@ -136,4 +136,25 @@ RSpec.describe GroupMixer do
       end
     end
   end
+
+  describe '.make_groups_by_member_size' do
+    subject {
+      GroupMixer.__send__(:make_groups_by_member_size, people_size, member_size, is_separate_reminders)
+    }
+
+    context 'separate 13 people into groups of 4 people' do
+      let(:people_size) { 13 }
+      let(:member_size) { 4 }
+
+      context 'separate on average' do
+        let(:is_separate_reminders) { false }
+        it { is_expected.to eq [4, 3, 3, 3] }
+      end
+
+      context 'sort out remainders' do
+        let(:is_separate_reminders) { true }
+        it { is_expected.to eq [4, 4, 4, 1] }
+      end
+    end
+  end
 end

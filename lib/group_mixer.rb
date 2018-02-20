@@ -28,6 +28,10 @@ module GroupMixer
 
   private
 
+  def self.make_groups_hoge(group_size_set)
+    group_size_set.map { |s| Group.new(s) }
+  end
+
   def self.make_groups_by_group_size(people_size, group_size, is_separate_reminders)
     max_mem = (people_size.to_f / group_size).ceil
     rest = people_size % group_size
@@ -35,6 +39,16 @@ module GroupMixer
       Array.new(group_size - 1) { max_mem } + [rest]
     else
       Array.new(rest) { max_mem } + Array.new(group_size - rest) { max_mem - 1 }
+    end
+  end
+
+  def self.make_groups_by_member_size(people_size, member_size, is_separate_reminders)
+    group_size = (people_size.to_f / member_size).ceil
+    rest = people_size % group_size
+    if is_separate_reminders
+      Array.new(group_size - 1) { member_size } + [rest]
+    else
+      Array.new(rest) { member_size } + Array.new(group_size - rest) { member_size - 1 }
     end
   end
 
