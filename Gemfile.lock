@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    group_mixer (0.5.0)
+    group_mixer (0.5.1)
       thor
 
 GEM
