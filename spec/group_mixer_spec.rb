@@ -150,6 +150,21 @@ RSpec.describe GroupMixer do
         it { is_expected.to eq [3, 3, 3, 1] }
       end
     end
+
+    context 'divide 9 people into 3 groups' do
+      let(:people_size) { 9 }
+      let(:group_size) { 3 }
+
+      context 'separate on average' do
+        let(:is_separate_reminders) { false }
+        it { is_expected.to eq [3, 3, 3] }
+      end
+
+      context 'sort out remainders' do
+        let(:is_separate_reminders) { true }
+        it { is_expected.to eq [3, 3, 3] }
+      end
+    end
   end
 
   describe '.make_groups_by_member_size' do
@@ -184,6 +199,21 @@ RSpec.describe GroupMixer do
       context 'sort out remainders' do
         let(:is_separate_reminders) { true }
         it { is_expected.to eq [4, 4, 1] }
+      end
+    end
+
+    context 'separate 9 people into groups of 3 people' do
+      let(:people_size) { 9 }
+      let(:member_size) { 3 }
+
+      context 'separate on average' do
+        let(:is_separate_reminders) { false }
+        it { is_expected.to eq [3, 3, 3] }
+      end
+
+      context 'sort out remainders' do
+        let(:is_separate_reminders) { true }
+        it { is_expected.to eq [3, 3, 3] }
       end
     end
   end
