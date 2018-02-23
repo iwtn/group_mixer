@@ -55,19 +55,14 @@ module GroupMixer
     group_size = (people_size.to_f / member_size).ceil
     if is_separate_reminders
       rest = people_size % member_size
-      if rest.zero?
-        Array.new(group_size) { member_size }
-      else
-        Array.new(group_size - 1) { member_size } + [rest]
-      end
+      return Array.new(group_size) { member_size } if rest.zero?
+
+      Array.new(group_size - 1) { member_size } + [rest]
     else
       rest = people_size % group_size
       if rest.zero?
-        if people_size < group_size * member_size
-          Array.new(group_size) { member_size - 1 }
-        else
-          Array.new(group_size) { member_size }
-        end
+        msize = (people_size < group_size * member_size) ? member_size - 1 : member_size
+        Array.new(group_size) { msize }
       else
         Array.new(rest) { member_size } + Array.new(group_size - rest) { member_size - 1 }
       end
