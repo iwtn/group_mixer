@@ -216,5 +216,35 @@ RSpec.describe GroupMixer do
         it { is_expected.to eq [3, 3, 3] }
       end
     end
+
+    context 'separate 5 people into groups of 4 people' do
+      let(:people_size) { 5 }
+      let(:member_size) { 4 }
+
+      context 'separate on average' do
+        let(:is_separate_reminders) { false }
+        it { is_expected.to eq [3, 2] }
+      end
+
+      context 'sort out remainders' do
+        let(:is_separate_reminders) { true }
+        it { is_expected.to eq [4, 1] }
+      end
+    end
+
+    context 'separate 3 people into groups of 4 people' do
+      let(:people_size) { 10 }
+      let(:member_size) { 11 }
+
+      context 'separate on average' do
+        let(:is_separate_reminders) { false }
+        it { is_expected.to eq [10] }
+      end
+
+      context 'sort out remainders' do
+        let(:is_separate_reminders) { true }
+        it { is_expected.to eq [10] }
+      end
+    end
   end
 end
