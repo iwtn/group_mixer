@@ -1,3 +1,4 @@
+require_relative "./group_mixer/past_group_checker"
 require_relative "./group_mixer/mixer"
 
 module GroupMixer
