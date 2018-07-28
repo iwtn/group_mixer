@@ -1,13 +1,12 @@
 require "spec_helper"
 
 RSpec.describe GroupMixer::PastGroupChecker do
-  subject {
-      described_class.new
-  }
+  let(:groups) { [] }
+  let(:past_group_sets) { [] }
 
-  describe '#initialize' do
-    it 'can initialize' do
-      expect( subject.class ).to eq described_class
-    end
+  describe '.past_groups' do
+    subject { described_class.past_groups(groups, past_group_sets) }
+
+    it { is_expected.to eq({}) }
   end
 end
