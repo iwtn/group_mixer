@@ -114,6 +114,15 @@ RSpec.describe GroupMixer do
         expect(subject.map(&:size).min).to eq 1
       end
     end
+
+    context 'little members' do
+      let(:people) { ["0", "1"] }
+      let(:past_set) { [] }
+
+      it do
+        expect(subject.first.size).to eq 2
+      end
+    end
   end
 
   describe '.make_groups_by_group_size' do

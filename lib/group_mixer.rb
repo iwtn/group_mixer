@@ -76,6 +76,9 @@ module GroupMixer
       Array.new(group_size - 1) { Group.new(max_member_size) } + [Group.new(rest)]
     else
       min_group_size = max_member_size - rest
+      if group_size - min_group_size < 1
+        return Array.new(1) { Group.new(rest) }
+      end
       Array.new(group_size - min_group_size) { Group.new(max_member_size) } +
         Array.new(min_group_size) { Group.new(max_member_size - 1) }
     end
