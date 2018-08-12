@@ -79,7 +79,7 @@ RSpec.describe GroupMixer do
       end
     end
 
-    context 'little members' do
+    context 'little members and no past sets' do
       let(:people) { ["0", "1"] }
       let(:group_size) { 1 }
       let(:past_set) { [] }
@@ -125,7 +125,7 @@ RSpec.describe GroupMixer do
       end
     end
 
-    context 'little members' do
+    context 'little members and no past sets' do
       let(:people) { ["0", "1"] }
       let(:past_set) { [] }
 
