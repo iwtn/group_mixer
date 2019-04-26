@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     group_mixer (0.5.2)
-      thor
+      thor (~> 0.20)
 
 GEM
   remote: https://rubygems.org/
