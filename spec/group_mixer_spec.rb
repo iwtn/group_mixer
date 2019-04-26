@@ -78,6 +78,16 @@ RSpec.describe GroupMixer do
         expect(subject.map(&:size).min).to eq 1
       end
     end
+
+    context 'little members and no past sets' do
+      let(:people) { ["0", "1"] }
+      let(:group_size) { 1 }
+      let(:past_set) { [] }
+
+      it do
+        expect(subject.first.size).to eq 2
+      end
+    end
   end
 
   describe '.by_member_size' do
@@ -112,6 +122,15 @@ RSpec.describe GroupMixer do
 
       it do
         expect(subject.map(&:size).min).to eq 1
+      end
+    end
+
+    context 'little members and no past sets' do
+      let(:people) { ["0", "1"] }
+      let(:past_set) { [] }
+
+      it do
+        expect(subject.first.size).to eq 2
       end
     end
   end
